@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import heroImage from "@/assets/hero-workspace.webp";
@@ -92,9 +93,11 @@ export const Hero = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <Button variant="hero" size="lg">
-              <ArrowRight className="w-4 h-4" />
-              Start Your Project
+            <Button variant="hero" size="lg" asChild>
+              <Link to="/contact">
+                <ArrowRight className="w-4 h-4" />
+                Start Your Project
+              </Link>
             </Button>
             <Button variant="hero-outline" size="lg">
               <ArrowRight className="w-4 h-4" />
