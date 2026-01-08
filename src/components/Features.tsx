@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Zap, Code, Bug, HeadphonesIcon, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -46,8 +47,18 @@ const itemVariants = {
 
 export const Features = () => {
   return (
-    <section className="py-24 bg-background">
-      <div className="container">
+    <section className="py-24 bg-background relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute top-0 right-0 w-1/3 h-full opacity-20 pointer-events-none">
+        <img
+          src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=800&fit=crop"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-transparent to-background" />
+      </div>
+
+      <div className="container relative z-10">
         {/* Main Statement */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -61,9 +72,11 @@ export const Features = () => {
             startups move from idea to launch{" "}
             <span className="text-gradient">up to 3x faster</span> than traditional agencies.
           </p>
-          <Button variant="outline" className="mt-8">
-            Find Out More
-            <ArrowRight className="w-4 h-4" />
+          <Button variant="outline" className="mt-8 group" asChild>
+            <Link to="/about">
+              Find Out More
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </Button>
         </motion.div>
 
@@ -79,10 +92,10 @@ export const Features = () => {
             <motion.div
               key={feature.title}
               variants={itemVariants}
-              className="group relative p-8 rounded-3xl bg-card border border-border hover:border-primary/20 card-hover"
+              className="group relative p-8 rounded-3xl bg-card border border-border hover:border-primary/20 card-hover backdrop-blur-sm"
             >
-              <div className="mb-6 w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <feature.icon className="w-7 h-7 text-primary" />
+              <div className="mb-6 w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                <feature.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors" />
               </div>
               <h3 className="font-serif text-xl mb-3 text-foreground">{feature.title}</h3>
               <p className="text-muted-foreground leading-relaxed">{feature.description}</p>

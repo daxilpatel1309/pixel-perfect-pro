@@ -6,7 +6,7 @@ const reasons = [
     icon: Users,
     title: "Expert + AI Combo",
     description: "Innovation with human insight",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop",
     size: "large",
   },
   {
@@ -19,14 +19,14 @@ const reasons = [
     icon: Scale,
     title: "Scalable Architecture",
     description: "Always ready for growth and pivots",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=600&fit=crop",
     size: "medium",
   },
   {
     icon: Zap,
     title: "3x Faster Delivery",
     description: "Agile sprints powered by AI acceleration",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=800&fit=crop",
     size: "large",
   },
 ];
@@ -145,7 +145,7 @@ export const WhyChooseUs = () => {
           </motion.div>
         </div>
 
-        {/* Tagline */}
+        {/* Tagline with animated text */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -153,10 +153,27 @@ export const WhyChooseUs = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="text-center mt-16"
         >
-          <p className="text-xl md:text-2xl text-muted-foreground">
+          <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground">
             Softy Solutions can help you with{" "}
-            <span className="text-foreground font-medium">a SaaS platform</span> or{" "}
-            <span className="text-foreground font-medium">a custom app</span>
+            <motion.span
+              className="inline-block text-foreground font-medium"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.7 }}
+            >
+              a SaaS platform
+            </motion.span>{" "}
+            or{" "}
+            <motion.span
+              className="inline-block text-foreground font-medium"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.9 }}
+            >
+              a custom app
+            </motion.span>
           </p>
         </motion.div>
       </div>

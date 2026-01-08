@@ -4,7 +4,9 @@ import { LogoMarquee } from "@/components/LogoMarquee";
 import { Features } from "@/components/Features";
 import { Services } from "@/components/Services";
 import { WhyChooseUs } from "@/components/WhyChooseUs";
+import { HomeProjects } from "@/components/HomeProjects";
 import { Testimonials } from "@/components/Testimonials";
+import { HomeTeam } from "@/components/HomeTeam";
 import { MarqueeStrip } from "@/components/MarqueeStrip";
 import { Pricing } from "@/components/Pricing";
 import { Footer } from "@/components/Footer";
@@ -18,7 +20,9 @@ const Index = () => {
       <Features />
       <Services />
       <WhyChooseUs />
+      <HomeProjects />
       <Testimonials />
+      <HomeTeam />
       <MarqueeStrip />
       <Pricing />
       <Footer />

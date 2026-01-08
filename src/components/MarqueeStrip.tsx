@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Sparkles } from "lucide-react";
 
 const marqueeText = [
   "From Idea to MVP in 8 Weeks",
@@ -9,24 +10,24 @@ const marqueeText = [
 
 export const MarqueeStrip = () => {
   return (
-    <section className="py-8 bg-foreground text-primary-foreground overflow-hidden">
+    <section className="py-6 bg-foreground text-primary-foreground overflow-hidden">
       <div className="flex">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{
-            duration: 30,
+            duration: 40,
             repeat: Infinity,
             ease: "linear",
           }}
-          className="flex gap-16 items-center whitespace-nowrap"
+          className="flex gap-12 items-center whitespace-nowrap"
         >
           {[...marqueeText, ...marqueeText, ...marqueeText, ...marqueeText].map((text, index) => (
             <span
               key={index}
-              className="text-xl md:text-2xl font-serif flex items-center gap-8"
+              className="text-lg md:text-xl lg:text-2xl font-serif flex items-center gap-6"
             >
               {text}
-              <span className="w-2 h-2 rounded-full bg-primary" />
+              <Sparkles className="w-4 h-4 text-primary" />
             </span>
           ))}
         </motion.div>
