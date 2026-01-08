@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { ArrowRight, MapPin, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const footerLinks = {
   company: [
-    { label: "About Us", href: "#" },
-    { label: "Our Team", href: "#" },
+    { label: "About Us", href: "/about" },
+    { label: "Our Team", href: "/team" },
     { label: "Careers", href: "#" },
     { label: "Press", href: "#" },
   ],
@@ -16,8 +17,8 @@ const footerLinks = {
     { label: "Consulting", href: "#" },
   ],
   resources: [
-    { label: "Blog", href: "#" },
-    { label: "Case Studies", href: "#" },
+    { label: "Blog", href: "/blog" },
+    { label: "Case Studies", href: "/projects" },
     { label: "Documentation", href: "#" },
     { label: "Support", href: "#" },
   ],
@@ -41,21 +42,23 @@ export const Footer = () => {
           <p className="text-primary-foreground/70 text-lg max-w-2xl mx-auto mb-8">
             Let's turn your vision into reality. Start your project today and see results in weeks, not months.
           </p>
-          <Button
-            variant="hero"
-            size="xl"
-            className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90"
-          >
-            <ArrowRight className="w-5 h-5" />
-            Start Your Project
-          </Button>
+          <Link to="/contact">
+            <Button
+              variant="hero"
+              size="xl"
+              className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90"
+            >
+              <ArrowRight className="w-5 h-5" />
+              Start Your Project
+            </Button>
+          </Link>
         </motion.div>
 
         {/* Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pt-12 border-t border-primary-foreground/10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-2 mb-6">
+            <Link to="/" className="flex items-center gap-2 mb-6">
               <svg
                 width="40"
                 height="40"
@@ -75,7 +78,7 @@ export const Footer = () => {
                 />
               </svg>
               <span className="font-serif text-xl font-bold">Softy Solutions</span>
-            </a>
+            </Link>
             <p className="text-primary-foreground/60 text-sm leading-relaxed max-w-sm mb-6">
               We combine AI technology with expert developers to turn your idea into a market-ready product — in record time.
             </p>
@@ -97,12 +100,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith("/") ? (
+                    <Link
+                      to={link.href}
+                      className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -129,12 +141,21 @@ export const Footer = () => {
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors"
-                  >
-                    {link.label}
-                  </a>
+                  {link.href.startsWith("/") ? (
+                    <Link
+                      to={link.href}
+                      className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -143,7 +164,7 @@ export const Footer = () => {
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pt-12 mt-12 border-t border-primary-foreground/10 text-sm text-primary-foreground/50">
-          <p>© 2024 Softy Solutions. All rights reserved.</p>
+          <p>© 2026 Softy Solutions. All rights reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-primary-foreground transition-colors">
               Privacy Policy
