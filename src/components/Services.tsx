@@ -9,6 +9,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -109,12 +110,18 @@ export const Services = () => {
             <motion.div
               key={service.title}
               variants={itemVariants}
-              className={`group relative p-8 rounded-3xl bg-card border border-border hover:border-primary/30 card-hover cursor-pointer ${
-                service.featured ? "" : "bg-primary/5"
+              className={`group relative p-8 rounded-3xl border cursor-pointer transition-all duration-300 ${
+                service.featured 
+                  ? "bg-card border-border hover:border-primary/30 hover:shadow-elevated" 
+                  : "bg-primary/5 border-primary/10 hover:bg-primary/10"
               }`}
             >
               <div className="flex items-start gap-5">
-                <div className="shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                <div className={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                  service.featured 
+                    ? "bg-primary/10 group-hover:bg-primary group-hover:text-primary-foreground" 
+                    : "bg-primary/20 group-hover:bg-primary group-hover:text-primary-foreground"
+                }`}>
                   <service.icon className="w-6 h-6" />
                 </div>
                 <div className="flex-1">
@@ -142,9 +149,11 @@ export const Services = () => {
           className="text-center mt-16"
         >
           <p className="text-lg text-muted-foreground mb-6">Ready to Innovate?</p>
-          <Button variant="hero" size="lg">
-            <ArrowRight className="w-4 h-4" />
-            Start Your Project
+          <Button variant="hero" size="lg" asChild>
+            <Link to="/contact">
+              <ArrowRight className="w-4 h-4" />
+              Start Your Project
+            </Link>
           </Button>
         </motion.div>
       </div>

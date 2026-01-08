@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const plans = [
   {
@@ -68,12 +69,21 @@ export const Pricing = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * index }}
-              className={`relative p-8 rounded-3xl border ${
+              className={`relative p-8 rounded-3xl border transition-all duration-300 ${
                 plan.featured
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-card border-border"
-              } card-hover`}
+                  ? "bg-primary text-primary-foreground border-primary shadow-elevated scale-[1.02]"
+                  : "bg-card border-border hover:border-primary/30 hover:shadow-card"
+              }`}
             >
+              {/* Popular Badge */}
+              {plan.featured && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="px-4 py-1 rounded-full bg-foreground text-background text-xs font-semibold">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+
               {/* Label */}
               <p
                 className={`text-sm mb-6 ${
@@ -117,7 +127,7 @@ export const Pricing = () => {
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
                     <Check
-                      className={`w-5 h-5 mt-0.5 ${
+                      className={`w-5 h-5 mt-0.5 shrink-0 ${
                         plan.featured ? "text-primary-foreground" : "text-primary"
                       }`}
                     />
@@ -135,10 +145,13 @@ export const Pricing = () => {
               {/* CTA */}
               <Button
                 variant={plan.featured ? "hero-outline" : "hero"}
-                className={`w-full ${plan.featured ? "bg-white text-foreground hover:bg-white/90" : ""}`}
+                className={`w-full ${plan.featured ? "bg-white text-foreground hover:bg-white/90 border-white" : ""}`}
+                asChild
               >
-                Get Started
-                <ArrowRight className="w-4 h-4" />
+                <Link to="/contact">
+                  Get Started
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </Button>
             </motion.div>
           ))}

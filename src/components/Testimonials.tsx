@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
-import { useState } from "react";
 
 const testimonials = [
   {
@@ -9,6 +8,7 @@ const testimonials = [
     author: "Alex Carter",
     role: "Founder of Taskify",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
   },
   {
     quote:
@@ -16,6 +16,7 @@ const testimonials = [
     author: "Lena Torres",
     role: "CEO of BrightFinance",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
   },
   {
     quote:
@@ -23,6 +24,7 @@ const testimonials = [
     author: "Sofia Patel",
     role: "Co-Founder at EcoLink",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face",
   },
   {
     quote:
@@ -30,12 +32,11 @@ const testimonials = [
     author: "Daniel Wright",
     role: "CEO of FlowPilot",
     rating: 5,
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
   },
 ];
 
 export const Testimonials = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-
   return (
     <section className="py-24 bg-secondary/30">
       <div className="container">
@@ -68,7 +69,7 @@ export const Testimonials = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * index }}
-              className="relative p-8 rounded-3xl bg-card border border-border hover:border-primary/20 card-hover"
+              className="relative p-8 rounded-3xl bg-card border border-border hover:border-primary/20 hover:shadow-card transition-all duration-300"
             >
               {/* Rating */}
               <div className="flex items-center gap-1 mb-6">
@@ -87,6 +88,11 @@ export const Testimonials = () => {
 
               {/* Author */}
               <div className="flex items-center gap-4">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.author}
+                  className="w-12 h-12 rounded-full object-cover ring-2 ring-border"
+                />
                 <div>
                   <p className="font-medium text-foreground">— {testimonial.author}</p>
                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
