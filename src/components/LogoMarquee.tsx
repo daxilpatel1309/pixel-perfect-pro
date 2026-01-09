@@ -13,17 +13,17 @@ export const LogoMarquee = () => {
   const [duplicatedPartners] = useState([...partners, ...partners, ...partners]);
 
   return (
-    <section className="py-16 bg-secondary/30">
-      <div className="container mb-8">
-        <motion.p
+    <section className="py-20 bg-secondary/40">
+      <div className="container mb-10">
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center text-muted-foreground font-medium"
+          className="text-center text-xl md:text-2xl font-serif text-foreground"
         >
           More than 100+ companies trust us worldwide
-        </motion.p>
+        </motion.h2>
       </div>
 
       <div className="marquee-container">
@@ -31,12 +31,12 @@ export const LogoMarquee = () => {
           {duplicatedPartners.map((partner, index) => (
             <div
               key={`${partner.name}-${index}`}
-              className="flex items-center justify-center h-12 w-32 opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+              className="flex items-center justify-center h-14 w-36 opacity-40 hover:opacity-100 transition-all duration-300 grayscale hover:grayscale-0"
             >
               <img
                 src={partner.logo}
                 alt={partner.name}
-                className="h-8 w-auto object-contain"
+                className="h-10 w-auto object-contain"
               />
             </div>
           ))}
