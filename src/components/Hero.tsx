@@ -31,13 +31,13 @@ export const Hero = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="badge-pill mb-8"
           >
-            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-foreground text-background text-xs">
-              <Sparkles className="w-3 h-3" />
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-foreground text-background text-xs">
+              <Sparkles className="w-3.5 h-3.5" />
             </span>
             <span className="text-xs font-bold tracking-wider uppercase text-muted-foreground">
               Next-Gen
             </span>
-            <span className="text-foreground font-medium">AI-Accelerated Product Development</span>
+            <span className="text-foreground font-semibold">AI-Accelerated Product Development</span>
           </motion.div>
 
           {/* Heading */}
@@ -45,7 +45,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.05] text-foreground mb-6"
+            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[1.08] text-foreground mb-8"
           >
             Build Smarter.
             <br />
@@ -57,7 +57,7 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed font-medium"
           >
             Softy Solutions combines AI technology with expert developers to turn your idea into a
             market-ready product — in record time.
@@ -76,14 +76,14 @@ export const Hero = () => {
                   key={index}
                   src={avatar}
                   alt={`Client ${index + 1}`}
-                  className="w-10 h-10 rounded-full object-cover"
+                  className="w-11 h-11 rounded-full object-cover border-2 border-background"
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                 />
               ))}
             </div>
-            <span className="text-sm text-muted-foreground font-medium">2000+ Happy Clients</span>
+            <span className="text-sm text-muted-foreground font-semibold">2000+ Happy Clients</span>
           </motion.div>
 
           {/* CTAs */}
@@ -99,9 +99,11 @@ export const Hero = () => {
                 Start Your Project
               </Link>
             </Button>
-            <Button variant="hero-outline" size="lg">
-              <ArrowRight className="w-4 h-4" />
-              See Our Process
+            <Button variant="hero-outline" size="lg" asChild>
+              <Link to="/about">
+                <ArrowRight className="w-4 h-4" />
+                See Our Process
+              </Link>
             </Button>
           </motion.div>
         </div>
@@ -119,7 +121,7 @@ export const Hero = () => {
               alt="Modern workspace"
               className="w-full h-auto object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/10 to-transparent" />
           </div>
         </motion.div>
       </div>
