@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 const plans = [
   {
     label: "For early-stage products",
+    labelColor: "bg-amber-100 text-amber-800",
     name: "MVP Launch",
     price: "$3,500",
     period: "/project",
@@ -18,6 +19,7 @@ const plans = [
   },
   {
     label: "For scaling startups",
+    labelColor: "bg-blue-100 text-blue-800",
     name: "Growth Build",
     price: "$7,500",
     period: "/project",
@@ -26,10 +28,11 @@ const plans = [
       "AI-accelerated QA & integrations",
       "Weekly strategy calls",
     ],
-    featured: true,
+    featured: false,
   },
   {
     label: "For complex or high-scale projects",
+    labelColor: "bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white",
     name: "Custom Enterprise",
     price: "Tailored Quote",
     period: "",
@@ -38,9 +41,28 @@ const plans = [
       "Advanced architecture planning",
       "SLA-backed performance",
     ],
-    featured: false,
+    featured: true,
   },
 ];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
+  },
+};
 
 export const Pricing = () => {
   return (
@@ -54,69 +76,59 @@ export const Pricing = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="section-label mb-4">Plans Overview</p>
+          <span className="inline-block px-4 py-1.5 rounded-full border border-border bg-background text-sm font-medium text-muted-foreground mb-6">
+            Plans Overview
+          </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground">
             Startup-Friendly Pricing
           </h2>
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+        >
           {plans.map((plan, index) => (
             <motion.div
               key={plan.name}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 * index }}
-              className={`relative p-8 rounded-3xl border transition-all duration-300 ${
+              variants={itemVariants}
+              className={`relative p-7 rounded-3xl border transition-all duration-300 ${
                 plan.featured
-                  ? "bg-primary text-primary-foreground border-primary shadow-elevated scale-[1.02]"
-                  : "bg-card border-border hover:border-primary/30 hover:shadow-card"
+                  ? "bg-card border-2 border-transparent shadow-card"
+                  : "bg-card border-border hover:border-primary/20 hover:shadow-card"
               }`}
+              style={plan.featured ? {
+                borderImage: "linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6) 1",
+              } : {}}
             >
-              {/* Popular Badge */}
+              {/* Gradient Border for Featured */}
               {plan.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="px-4 py-1 rounded-full bg-foreground text-background text-xs font-semibold">
-                    Most Popular
-                  </span>
+                <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 -z-10">
+                  <div className="w-full h-full rounded-3xl bg-card" />
                 </div>
               )}
 
               {/* Label */}
-              <p
-                className={`text-sm mb-6 ${
-                  plan.featured ? "text-primary-foreground/80" : "text-muted-foreground"
-                }`}
-              >
+              <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-6 ${plan.labelColor}`}>
                 {plan.label}
-              </p>
+              </span>
 
               {/* Plan Name */}
-              <h3
-                className={`font-serif text-2xl mb-2 ${
-                  plan.featured ? "text-primary-foreground" : "text-foreground"
-                }`}
-              >
+              <h3 className="font-serif text-2xl text-foreground mb-2">
                 {plan.name}
               </h3>
 
               {/* Price */}
               <div className="mb-8">
-                <span
-                  className={`text-4xl font-bold ${
-                    plan.featured ? "text-primary-foreground" : "text-foreground"
-                  }`}
-                >
+                <span className="text-3xl font-bold text-foreground">
                   {plan.price}
                 </span>
                 {plan.period && (
-                  <span
-                    className={`text-sm ${
-                      plan.featured ? "text-primary-foreground/70" : "text-muted-foreground"
-                    }`}
-                  >
+                  <span className="text-sm text-muted-foreground">
                     {plan.period}
                   </span>
                 )}
@@ -126,16 +138,8 @@ export const Pricing = () => {
               <ul className="space-y-4 mb-8">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <Check
-                      className={`w-5 h-5 mt-0.5 shrink-0 ${
-                        plan.featured ? "text-primary-foreground" : "text-primary"
-                      }`}
-                    />
-                    <span
-                      className={`text-sm ${
-                        plan.featured ? "text-primary-foreground/90" : "text-foreground"
-                      }`}
-                    >
+                    <Check className="w-5 h-5 mt-0.5 shrink-0 text-muted-foreground" />
+                    <span className="text-sm text-foreground">
                       {feature}
                     </span>
                   </li>
@@ -144,18 +148,18 @@ export const Pricing = () => {
 
               {/* CTA */}
               <Button
-                variant={plan.featured ? "hero-outline" : "hero"}
-                className={`w-full ${plan.featured ? "bg-white text-foreground hover:bg-white/90 border-white" : ""}`}
+                variant={plan.featured ? "hero" : "outline"}
+                className="w-full"
                 asChild
               >
                 <Link to="/contact">
-                  Get Started
                   <ArrowRight className="w-4 h-4" />
+                  Get Started
                 </Link>
               </Button>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
