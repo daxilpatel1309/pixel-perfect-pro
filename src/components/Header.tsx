@@ -13,7 +13,19 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: "Home", href: "/", hasDropdown: false },
-  { label: "Services", href: "#services", hasDropdown: false },
+  { 
+    label: "Services", 
+    href: "/services", 
+    hasDropdown: true,
+    dropdownItems: [
+      { label: "AI-Accelerated Product Development", href: "/services/ai-accelerated-product-development" },
+      { label: "Custom Software & App Development", href: "/services/custom-software-app-development" },
+      { label: "Prototyping & UX Design", href: "/services/prototyping-ux-design" },
+      { label: "AI Integration & Automation", href: "/services/ai-integration-automation" },
+      { label: "Cloud Architecture & DevOps", href: "/services/cloud-architecture-devops" },
+      { label: "Startup Growth Consulting", href: "/services/startup-growth-consulting" },
+    ]
+  },
   { label: "Pricing", href: "#pricing", hasDropdown: false },
   { 
     label: "Pages", 
@@ -170,18 +182,62 @@ export const Header = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-elevated border border-border py-2 z-50"
+                    className={`absolute top-full left-0 mt-2 bg-white rounded-xl shadow-elevated border border-border py-2 z-50 ${
+                      item.label === "Services" ? "w-[600px] flex" : "w-48"
+                    }`}
                   >
-                    {item.dropdownItems?.map((dropdownItem) => (
-                      <Link
-                        key={dropdownItem.label}
-                        to={dropdownItem.href}
-                        className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-secondary/50 transition-colors"
-                        onClick={() => setOpenDropdown(null)}
-                      >
-                        {dropdownItem.label}
-                      </Link>
-                    ))}
+                    {item.label === "Services" ? (
+                      <>
+                        {/* Services List */}
+                        <div className="flex-1 p-4">
+                          <h4 className="font-serif text-sm text-foreground mb-3 px-2">All Services</h4>
+                          <div className="space-y-1">
+                            {item.dropdownItems?.map((dropdownItem) => (
+                              <Link
+                                key={dropdownItem.label}
+                                to={dropdownItem.href}
+                                className="block px-3 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary/50 rounded-lg transition-colors"
+                                onClick={() => setOpenDropdown(null)}
+                              >
+                                {dropdownItem.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                        {/* CTA Image Section */}
+                        <div className="w-64 p-3">
+                          <div className="relative h-full rounded-xl overflow-hidden">
+                            <img 
+                              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop"
+                              alt="Get in touch"
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-foreground/40 flex flex-col items-center justify-center text-center p-4">
+                              <p className="text-white font-serif text-lg mb-3">Every project starts with a conversation</p>
+                              <Link 
+                                to="/contact"
+                                className="inline-flex items-center gap-2 px-4 py-2 bg-white text-foreground rounded-full text-sm font-medium hover:bg-white/90 transition-colors"
+                                onClick={() => setOpenDropdown(null)}
+                              >
+                                <ArrowRight className="w-4 h-4" />
+                                Get in Touch
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      item.dropdownItems?.map((dropdownItem) => (
+                        <Link
+                          key={dropdownItem.label}
+                          to={dropdownItem.href}
+                          className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-secondary/50 transition-colors"
+                          onClick={() => setOpenDropdown(null)}
+                        >
+                          {dropdownItem.label}
+                        </Link>
+                      ))
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
