@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
+import { motion } from "framer-motion";
 
 const footerLinks = [
   { label: "About Us", href: "/about" },
-  { label: "Our Services", href: "#" },
+  { label: "Our Services", href: "/services" },
   { label: "Blog Page", href: "/blog" },
-  { label: "Shop", href: "#" },
   { label: "Contacts", href: "/contact" },
 ];
 
@@ -58,71 +58,127 @@ export const Footer = () => {
 
   return (
     <footer className="relative overflow-hidden">
-      {/* Gradient wave background */}
+      {/* Animated gradient background */}
       <div className="absolute inset-0 z-0">
-        <div className="gradient-mesh h-full opacity-60">
-          <div className="gradient-blob gradient-blob-1" />
-          <div className="gradient-blob gradient-blob-2" />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-100/80 via-pink-50/60 to-blue-100/80 dark:from-purple-950/40 dark:via-pink-950/30 dark:to-blue-950/40" />
+        
+        {/* Animated gradient blobs */}
+        <motion.div
+          className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gradient-to-br from-purple-300/40 to-pink-300/40 dark:from-purple-700/20 dark:to-pink-700/20 blur-3xl"
+          animate={{
+            x: [0, 50, 0],
+            y: [0, 30, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-gradient-to-br from-blue-300/40 to-purple-300/40 dark:from-blue-700/20 dark:to-purple-700/20 blur-3xl"
+          animate={{
+            x: [0, -40, 0],
+            y: [0, -40, 0],
+            scale: [1, 1.15, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-gradient-to-br from-pink-200/30 to-purple-200/30 dark:from-pink-800/15 dark:to-purple-800/15 blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.5, 0.8, 0.5],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </div>
 
       <div className="container relative z-10 py-16">
         {/* Navigation Links */}
-        <nav className="flex flex-wrap justify-center gap-8 md:gap-12 mb-20">
-          {footerLinks.map((link) => (
-            link.href.startsWith("/") ? (
+        <nav className="flex flex-wrap justify-center gap-8 md:gap-12 mb-16">
+          {footerLinks.map((link, index) => (
+            <motion.div
+              key={link.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
               <Link
-                key={link.label}
                 to={link.href}
-                className="text-foreground/80 hover:text-foreground font-medium transition-colors"
+                className="text-foreground/80 hover:text-foreground font-medium transition-all duration-300 hover:scale-105 inline-block relative group"
               >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 group-hover:w-full" />
               </Link>
-            ) : (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-foreground/80 hover:text-foreground font-medium transition-colors"
-              >
-                {link.label}
-              </a>
-            )
+            </motion.div>
           ))}
         </nav>
 
         {/* Bottom section */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+        <motion.div 
+          className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-foreground/10"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
           {/* Copyright */}
           <p className="text-foreground/60 text-sm">
             This is a sample website – Softy Solutions © 2026 – All Rights Reserved
           </p>
 
           {/* Social Icons */}
-          <div className="flex items-center gap-6">
-            {socialLinks.map((social) => (
-              <a
+          <div className="flex items-center gap-5">
+            {socialLinks.map((social, index) => (
+              <motion.a
                 key={social.name}
                 href={social.href}
-                className="text-foreground/60 hover:text-foreground transition-colors"
+                className="text-foreground/60 hover:text-foreground transition-all duration-300 p-2 rounded-full hover:bg-foreground/5"
                 aria-label={social.name}
+                whileHover={{ scale: 1.15, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                viewport={{ once: true }}
               >
                 {social.icon}
-              </a>
+              </motion.a>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Scroll to top button */}
-      <button
+      <motion.button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-50 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 ${
-          showScrollTop ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+        className={`fixed bottom-8 right-8 z-50 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center shadow-lg ${
+          showScrollTop ? "pointer-events-auto" : "pointer-events-none"
         }`}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ 
+          opacity: showScrollTop ? 1 : 0, 
+          y: showScrollTop ? 0 : 20,
+          scale: showScrollTop ? 1 : 0.8
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ duration: 0.3 }}
         aria-label="Scroll to top"
       >
         <ArrowUp className="w-5 h-5" />
-      </button>
+      </motion.button>
     </footer>
   );
 };
