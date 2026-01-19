@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown, Search, ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { SearchModal } from "./SearchModal";
 
 interface NavItem {
   label: string;
@@ -46,6 +47,7 @@ export const Header = () => {
   const [isHidden, setIsHidden] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
   const navigate = useNavigate();
@@ -243,7 +245,11 @@ export const Header = () => {
               </AnimatePresence>
             </div>
           ))}
-          <button className="p-2.5 text-foreground/80 hover:text-foreground transition-colors rounded-full hover:bg-secondary/50">
+          <button 
+            onClick={() => setSearchOpen(true)}
+            className="p-2.5 text-foreground/80 hover:text-foreground transition-colors rounded-full hover:bg-secondary/50"
+            aria-label="Open search"
+          >
             <Search className="w-5 h-5" />
           </button>
         </nav>
@@ -342,6 +348,9 @@ export const Header = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Search Modal */}
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </motion.header>
   );
 };
