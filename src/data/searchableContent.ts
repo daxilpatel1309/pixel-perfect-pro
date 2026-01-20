@@ -145,15 +145,20 @@ export const searchableContent: SearchableItem[] = [
   ...blogPosts,
 ];
 
-// Search function
+// Normalize text by removing spaces and converting to lowercase
+const normalize = (text: string): string => {
+  return text.toLowerCase().replace(/\s+/g, "");
+};
+
+// Search function - space and case insensitive
 export const searchContent = (query: string): SearchableItem[] => {
   if (!query.trim()) return [];
   
-  const searchTerms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  const normalizedQuery = normalize(query);
   
   return searchableContent.filter((item) => {
-    const searchableText = `${item.title} ${item.description} ${item.content}`.toLowerCase();
-    return searchTerms.every((term) => searchableText.includes(term));
+    const searchableText = `${item.title} ${item.description} ${item.content}`;
+    return normalize(searchableText).includes(normalizedQuery);
   });
 };
 

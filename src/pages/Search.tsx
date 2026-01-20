@@ -106,20 +106,7 @@ const Search = () => {
 
       {/* Results Section */}
       <section className="py-16">
-        <div className="container">
-          {query && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mb-8"
-            >
-              <p className="text-muted-foreground">
-                {results.length > 0
-                  ? `Found ${results.length} result${results.length !== 1 ? "s" : ""}`
-                  : ""}
-              </p>
-            </motion.div>
-          )}
+        <div className="container max-w-4xl mx-auto">
 
           {query && results.length === 0 ? (
             <motion.div
@@ -146,7 +133,7 @@ const Search = () => {
                 </Link>
               </div>
             </motion.div>
-          ) : (
+          ) : query && results.length > 0 ? (
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -199,10 +186,7 @@ const Search = () => {
                 </motion.article>
               ))}
             </motion.div>
-          )}
-
-          {/* Empty state when no query */}
-          {!query && (
+          ) : (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
