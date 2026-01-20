@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { searchContent, highlightText, SearchableItem } from "@/data/searchableContent";
 import { Search as SearchIcon, ArrowRight } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -48,6 +49,12 @@ const Search = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={query ? `Search Results for '${query}'` : "Search"}
+        description={query ? `Search results for ${query} on JJR SOFTWARE website.` : "Search JJR SOFTWARE website for pages, services, and blog posts."}
+        canonical="/search"
+        noindex={!query || results.length === 0}
+      />
       <Header />
 
       {/* Hero Section */}
@@ -107,31 +114,6 @@ const Search = () => {
       {/* Results Section */}
       <section className="py-16">
         <div className="container">
-          {query && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="mb-8 text-center"
-            >
-              {results.length > 0 ? (
-                <div className="flex items-center justify-center gap-2 flex-wrap">
-                  <p className="text-lg font-medium text-foreground">
-                    Found <span className="text-primary font-semibold">{results.length}</span> result{results.length !== 1 ? "s" : ""}
-                  </p>
-                  <span className="text-muted-foreground">for</span>
-                  <p className="text-lg font-medium text-primary">"{query}"</p>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center gap-2 flex-wrap">
-                  <p className="text-lg font-medium text-foreground">
-                    No results found
-                  </p>
-                  <span className="text-muted-foreground">for</span>
-                  <p className="text-lg font-medium text-primary">"{query}"</p>
-                </div>
-              )}
-            </motion.div>
-          )}
 
           {query && results.length === 0 ? (
             <motion.div

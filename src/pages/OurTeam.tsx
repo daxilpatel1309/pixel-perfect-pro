@@ -17,6 +17,12 @@ const teamMembers = [
 const OurTeam = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Our Team"
+        description="Meet the talented professionals at JJR SOFTWARE - expert developers, designers, and strategists delivering exceptional software solutions in Ahmedabad, Gujarat."
+        keywords="JJR SOFTWARE team, software development team, Ahmedabad developers, IT professionals Gujarat"
+        canonical="/team"
+      />
       <Header />
       
       <PageHero title="Our Team" breadcrumb="Our Team" />

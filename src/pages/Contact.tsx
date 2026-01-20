@@ -2,33 +2,21 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, MapPin, Clock, Send } from "lucide-react";
+import { ArrowRight, Phone, MapPin, Mail, Send } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
-const locations = [
-  {
-    name: "Apple Valley",
-    address: "14960 Florence Trail\nApple Valley, MN 55124",
-    hours: "Monday – Sunday,\n9am – 7pm EST",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80",
-  },
-  {
-    name: "White Bear Lake",
-    address: "2401 East Buffalo St.\nWhite Bear Lake, MN 55110",
-    hours: "Monday – Sunday,\n9am – 7pm EST",
-    image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&auto=format&fit=crop&q=80",
-  },
-  {
-    name: "San Francisco",
-    address: "123 Innovation Street\nSan Francisco, CA 94107",
-    hours: "Monday – Friday,\n9am – 6pm PST",
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=800&auto=format&fit=crop&q=80",
-  },
-];
+// Removed locations section as per company details - single location in Ahmedabad
 
 const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with JJR SOFTWARE in Ahmedabad, Gujarat. Call us at +(91) 94-281-951-57 or email info@jjrsoftware.com for software development services."
+        keywords="contact JJR SOFTWARE, software company contact, Ahmedabad software development contact, Gujarat IT services"
+        canonical="/contact"
+      />
       <Header />
       
       {/* Hero Section with Wave Background */}
@@ -64,8 +52,8 @@ const Contact = () => {
                 </Link>
                 <div>
                   <p className="text-sm text-muted-foreground mb-1">Give Us a Call:</p>
-                  <a href="tel:+08002336781" className="text-xl font-semibold text-foreground hover:text-primary transition-colors">
-                    + 0800 2336 7811
+                  <a href="tel:+919428195157" className="text-xl font-semibold text-foreground hover:text-primary transition-colors">
+                    +(91) 94-281-951-57
                   </a>
                 </div>
               </div>
@@ -88,7 +76,7 @@ const Contact = () => {
                 Contact Information
               </h2>
               <p className="text-muted-foreground text-lg mb-8 max-w-md">
-                We're here to walk alongside you on your wellness journey. Whether you have questions about our services, want to book an appointment, or simply need guidance, our team is ready to help.
+                Get in touch with JJR SOFTWARE. Whether you have questions about our services, want to discuss your project, or need technical guidance, our team is ready to help.
               </p>
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="flex items-start gap-4">
@@ -97,22 +85,31 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Address:</h3>
-                    <p className="text-muted-foreground text-sm">
-                      14960 Florence Trail<br />
-                      Apple Valley, MN 55124
-                    </p>
+                    <address className="text-muted-foreground text-sm not-italic">
+                      Ahmedabad, Gujarat, India
+                    </address>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-5 h-5 text-primary" />
+                    <Phone className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground mb-1">Open:</h3>
-                    <p className="text-muted-foreground text-sm">
-                      Monday – Sunday,<br />
-                      9am – 7pm EST
-                    </p>
+                    <h3 className="font-semibold text-foreground mb-1">Phone:</h3>
+                    <a href="tel:+919428195157" className="text-muted-foreground text-sm hover:text-primary transition-colors">
+                      +(91) 94-281-951-57
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-foreground mb-1">Email:</h3>
+                    <a href="mailto:info@jjrsoftware.com" className="text-muted-foreground text-sm hover:text-primary transition-colors">
+                      info@jjrsoftware.com
+                    </a>
                   </div>
                 </div>
               </div>
@@ -135,65 +132,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* All Locations */}
-      <section className="py-20 bg-muted/30">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-12"
-          >
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground">All Locations</h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {locations.map((location, index) => (
-              <motion.div
-                key={location.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card rounded-3xl overflow-hidden shadow-card border border-border group"
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={location.image}
-                    alt={location.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <h3 className="absolute bottom-4 left-6 font-serif text-2xl text-white">
-                    {location.name}
-                  </h3>
-                </div>
-                <div className="p-6 space-y-4">
-                  <div>
-                    <h4 className="text-sm font-semibold text-foreground mb-1">Address:</h4>
-                    <p className="text-muted-foreground text-sm whitespace-pre-line">
-                      {location.address}
-                    </p>
-                  </div>
-                  <Link 
-                    to="#" 
-                    className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
-                  >
-                    Get Directions
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <div className="pt-4 border-t border-border">
-                    <h4 className="text-sm font-semibold text-foreground mb-1">Open:</h4>
-                    <p className="text-muted-foreground text-sm whitespace-pre-line">
-                      {location.hours}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Contact Form Section */}
       <section className="py-20 bg-background">

@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageHero } from "@/components/PageHero";
 import { ArrowRight } from "lucide-react";
+import { SEO } from "@/components/SEO";
 
 const blogPosts = [
   {
@@ -58,6 +59,12 @@ const blogPosts = [
 const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Blog"
+        description="Read the latest insights, tips, and industry news from JJR SOFTWARE. Articles on software development, technology trends, and best practices."
+        keywords="software development blog, technology blog, IT insights, software development tips, Ahmedabad tech blog"
+        canonical="/blog"
+      />
       <Header />
       
       <PageHero title="Blog" breadcrumb="Blog" />

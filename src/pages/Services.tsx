@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageHero } from "@/components/PageHero";
 import { servicesData } from "@/data/services";
+import { SEO } from "@/components/SEO";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,6 +29,12 @@ const itemVariants = {
 const Services = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Our Services"
+        description="Explore JJR SOFTWARE's comprehensive software development services including web development, mobile app development, custom software solutions, and enterprise applications in Ahmedabad, Gujarat."
+        keywords="software development services, web development services, mobile app development, custom software solutions, enterprise software, Ahmedabad software services"
+        canonical="/services"
+      />
       <Header />
       <PageHero title="Our Services" breadcrumb="Services" />
 

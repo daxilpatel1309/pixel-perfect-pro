@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageHero } from "@/components/PageHero";
+import { SEO } from "@/components/SEO";
 
 const projects = [
   { 
@@ -51,6 +52,12 @@ const projects = [
 const OurProjects = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Our Projects"
+        description="Explore our portfolio of successful software development projects. See how JJR SOFTWARE delivers innovative solutions for clients in Ahmedabad, Gujarat and beyond."
+        keywords="software development portfolio, IT projects, software company projects, Ahmedabad software projects, case studies"
+        canonical="/projects"
+      />
       <Header />
       
       {/* Hero Section */}

@@ -5,6 +5,7 @@ import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SEO } from "@/components/SEO";
 
 const teamMembers = [
   { name: "Ryan Chen", role: "Full-Stack Developer", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" },
@@ -61,6 +62,12 @@ const testimonials = [
 const AboutUs = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="About Us"
+        description="Learn about JJR SOFTWARE - a leading software development company in Ahmedabad, Gujarat. Our mission, values, and expertise in custom software solutions."
+        keywords="About JJR SOFTWARE, software company Ahmedabad, about software development company, Gujarat IT company"
+        canonical="/about"
+      />
       <Header />
       
       {/* Hero Section */}

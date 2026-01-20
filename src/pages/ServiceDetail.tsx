@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { servicesData, getServiceBySlug } from "@/data/services";
+import { SEO } from "@/components/SEO";
 
 const ServiceDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -20,6 +21,12 @@ const ServiceDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={service.title}
+        description={service.description}
+        keywords={`${service.title}, software development service, ${service.title.toLowerCase()} Ahmedabad, custom software solutions`}
+        canonical={`/services/${service.slug}`}
+      />
       <Header />
       
       {/* Hero Section */}

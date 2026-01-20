@@ -27,7 +27,7 @@ const navItems: NavItem[] = [
       { label: "Startup Growth Consulting", href: "/services/startup-growth-consulting" },
     ]
   },
-  { label: "Pricing", href: "#pricing", hasDropdown: false },
+  // { label: "Pricing", href: "#pricing", hasDropdown: false }, // (disabled) Pricing section
   { 
     label: "Pages", 
     href: "#", 
@@ -56,12 +56,15 @@ export const Header = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Show/hide based on scroll direction
+      // Hide header when scrolling down past threshold
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setIsHidden(true);
-      } else {
+      }
+      // Only show header when at the top of the page
+      else if (currentScrollY <= 50) {
         setIsHidden(false);
       }
+      // Keep hidden when scrolling up (don't show again)
       
       setIsScrolled(currentScrollY > 20);
       lastScrollY.current = currentScrollY;
@@ -107,34 +110,18 @@ export const Header = () => {
     >
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <Link to="/">
+        <Link to="/" className="flex items-center">
           <motion.div
-            className="flex items-center gap-2 text-foreground"
+            className="flex items-center"
             whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
           >
-            <svg
-              width="40"
-              height="40"
-              viewBox="0 0 40 40"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-primary"
-            >
-              <path
-                d="M20 4C11.163 4 4 11.163 4 20s7.163 16 16 16 16-7.163 16-16S28.837 4 20 4zm0 28c-6.627 0-12-5.373-12-12S13.373 8 20 8s12 5.373 12 12-5.373 12-12 12z"
-                fill="currentColor"
-              />
-              <path
-                d="M20 12c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm0 12c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"
-                fill="currentColor"
-                opacity="0.5"
-              />
-            </svg>
-            <span className="font-serif text-xl font-bold">
-              Softy
-              <br />
-              <span className="text-sm font-sans font-medium text-muted-foreground">Solutions</span>
-            </span>
+            <img
+              src="/logo.png"
+              alt="JJR SOFTWARE - Custom Software Development Company"
+              className="h-10 md:h-12 w-auto object-contain max-w-[200px]"
+              style={{ imageRendering: 'crisp-edges' }}
+            />
           </motion.div>
         </Link>
 
