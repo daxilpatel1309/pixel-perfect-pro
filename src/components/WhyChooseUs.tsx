@@ -154,7 +154,7 @@ export const WhyChooseUs = () => {
           className="text-center mt-16"
         >
           <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground">
-            Softy Solutions can help you with{" "}
+            JJR SOFTWARE can help you with{" "}
             <motion.span
               className="inline-block text-foreground font-medium"
               initial={{ opacity: 0, y: 10 }}

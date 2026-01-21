@@ -298,7 +298,7 @@ const AboutUs = () => {
               Let's Build Your Next Big Thing Together
             </h2>
             <p className="text-muted-foreground mb-8">
-              With Softy Solutions, you don't just build faster — you build smarter. Let's make your launch unforgettable.
+              With JJR SOFTWARE, you don&apos;t just build faster — you build smarter. Let&apos;s make your launch unforgettable.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">

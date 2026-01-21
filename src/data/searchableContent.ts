@@ -15,15 +15,15 @@ const staticPages: SearchableItem[] = [
   {
     id: "home",
     title: "Home",
-    description: "Welcome to Softy Solutions - AI-Powered Product Development",
-    content: "Softy Solutions digital agency software development AI machine learning startup growth consulting",
+    description: "Welcome to JJR SOFTWARE - AI-Powered Product Development",
+    content: "JJR SOFTWARE digital agency software development AI machine learning startup growth consulting",
     category: "Page",
     href: "/",
   },
   {
     id: "about",
     title: "About Us",
-    description: "Learn about our mission, values, and the team behind Softy Solutions.",
+    description: "Learn about our mission, values, and the team behind JJR SOFTWARE.",
     content: "About us mission values team company history experience expertise innovation technology",
     category: "Page",
     href: "/about",
@@ -39,7 +39,7 @@ const staticPages: SearchableItem[] = [
   {
     id: "team",
     title: "Our Team",
-    description: "Meet the talented professionals who make Softy Solutions great.",
+    description: "Meet the talented professionals who make JJR SOFTWARE great.",
     content: "Team members staff employees professionals experts developers designers engineers",
     category: "Page",
     href: "/team",

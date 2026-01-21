@@ -59,7 +59,7 @@ export const Hero = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed font-medium"
           >
-            Softy Solutions combines AI technology with expert developers to turn your idea into a
+            JJR SOFTWARE combines AI technology with expert developers to turn your idea into a
             market-ready product — in record time.
           </motion.p>
 

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -5,10 +6,88 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone, MapPin, Mail, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SEO } from "@/components/SEO";
+import { isValidEmail, normalizePhone } from "@/lib/googleSheets";
+import { submitLead } from "@/lib/leads";
 
 // Removed locations section as per company details - single location in Ahmedabad
 
 const Contact = () => {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  const [submitState, setSubmitState] = useState<{
+    status: "idle" | "sending" | "success" | "error";
+    message?: string;
+  }>({ status: "idle" });
+
+  const isSending = submitState.status === "sending";
+
+  useEffect(() => {
+    if (submitState.status !== "success" && submitState.status !== "error") return;
+    const t = window.setTimeout(() => setSubmitState({ status: "idle" }), 5000);
+    return () => window.clearTimeout(t);
+  }, [submitState.status]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSending) return;
+
+    const fullName = `${form.firstName} ${form.lastName}`.trim();
+
+    if (!fullName) {
+      setSubmitState({ status: "error", message: "Please enter your name." });
+      return;
+    }
+    if (!form.email.trim() || !isValidEmail(form.email.trim())) {
+      setSubmitState({ status: "error", message: "Please enter a valid email address." });
+      return;
+    }
+    if (!form.subject.trim()) {
+      setSubmitState({ status: "error", message: "Please enter a subject." });
+      return;
+    }
+    if (!form.message.trim()) {
+      setSubmitState({ status: "error", message: "Please enter your message." });
+      return;
+    }
+
+    setSubmitState({ status: "sending" });
+
+    try {
+      await submitLead({
+        name: fullName,
+        email: form.email.trim(),
+        phone: normalizePhone(form.phone),
+        subject: form.subject.trim(),
+        message: form.message.trim(),
+        page: "Contact",
+      });
+
+      setSubmitState({
+        status: "success",
+        message: "Thanks! Your message has been sent successfully.",
+      });
+      setForm({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    } catch (err) {
+      const msg =
+        err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      setSubmitState({ status: "error", message: msg });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
@@ -157,6 +236,7 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               className="bg-card rounded-3xl p-8 md:p-12 shadow-card border border-border"
+              onSubmit={handleSubmit}
             >
               <div className="grid sm:grid-cols-2 gap-6 mb-6">
                 <div>
@@ -165,8 +245,11 @@ const Contact = () => {
                   </label>
                   <input
                     type="text"
+                    value={form.firstName}
+                    onChange={(e) => setForm((p) => ({ ...p, firstName: e.target.value }))}
                     className="w-full h-14 px-5 rounded-2xl border border-border bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     placeholder="John"
+                    autoComplete="given-name"
                   />
                 </div>
                 <div>
@@ -175,8 +258,11 @@ const Contact = () => {
                   </label>
                   <input
                     type="text"
+                    value={form.lastName}
+                    onChange={(e) => setForm((p) => ({ ...p, lastName: e.target.value }))}
                     className="w-full h-14 px-5 rounded-2xl border border-border bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     placeholder="Doe"
+                    autoComplete="family-name"
                   />
                 </div>
               </div>
@@ -187,8 +273,11 @@ const Contact = () => {
                   </label>
                   <input
                     type="email"
+                    value={form.email}
+                    onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                     className="w-full h-14 px-5 rounded-2xl border border-border bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     placeholder="john@example.com"
+                    autoComplete="email"
                   />
                 </div>
                 <div>
@@ -197,8 +286,11 @@ const Contact = () => {
                   </label>
                   <input
                     type="tel"
+                    value={form.phone}
+                    onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
                     className="w-full h-14 px-5 rounded-2xl border border-border bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+91 94 281 951 57"
+                    autoComplete="tel"
                   />
                 </div>
               </div>
@@ -208,6 +300,8 @@ const Contact = () => {
                 </label>
                 <input
                   type="text"
+                  value={form.subject}
+                  onChange={(e) => setForm((p) => ({ ...p, subject: e.target.value }))}
                   className="w-full h-14 px-5 rounded-2xl border border-border bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                   placeholder="How can we help you?"
                 />
@@ -218,13 +312,37 @@ const Contact = () => {
                 </label>
                 <textarea
                   rows={5}
+                  value={form.message}
+                  onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
                   className="w-full px-5 py-4 rounded-2xl border border-border bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>
-              <Button variant="hero" size="xl" className="w-full sm:w-auto">
+              {submitState.status !== "idle" && (
+                <div
+                  className={`mb-6 rounded-2xl border px-4 py-3 text-sm ${
+                    submitState.status === "success"
+                      ? "border-primary/30 bg-primary/10 text-foreground"
+                      : submitState.status === "error"
+                        ? "border-destructive/30 bg-destructive/10 text-foreground"
+                        : "border-border bg-secondary/40 text-foreground"
+                  }`}
+                  role="status"
+                  aria-live="polite"
+                >
+                  {submitState.message}
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                variant="hero"
+                size="xl"
+                className="w-full sm:w-auto"
+                disabled={isSending}
+              >
                 <Send className="w-4 h-4" />
-                Send Message
+                {isSending ? "Sending..." : "Send Message"}
               </Button>
             </motion.form>
           </div>

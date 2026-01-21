@@ -125,7 +125,7 @@ export const Features = () => {
           className="max-w-4xl mx-auto text-center mt-24"
         >
           <p className="text-2xl md:text-3xl lg:text-4xl font-serif text-foreground leading-relaxed">
-            At Softy Solutions, we harness AI-assisted design, development, and testing to help
+            At JJR SOFTWARE, we harness AI-assisted design, development, and testing to help
             startups move from idea to launch{" "}
             <span className="text-primary">up to 3x faster</span> than traditional agencies.
           </p>

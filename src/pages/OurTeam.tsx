@@ -1,9 +1,13 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { PageHero } from "@/components/PageHero";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Send } from "lucide-react";
+import { SEO } from "@/components/SEO";
+import { isValidEmail } from "@/lib/googleSheets";
+import { submitLead } from "@/lib/leads";
 
 const teamMembers = [
   { name: "Sara Thompson", role: "Startup Growth Strategist", image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=500&fit=crop&crop=face" },
@@ -15,6 +19,58 @@ const teamMembers = [
 ];
 
 const OurTeam = () => {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [submitState, setSubmitState] = useState<{
+    status: "idle" | "sending" | "success" | "error";
+    message?: string;
+  }>({ status: "idle" });
+  const isSending = submitState.status === "sending";
+
+  useEffect(() => {
+    if (submitState.status !== "success" && submitState.status !== "error") return;
+    const t = window.setTimeout(() => setSubmitState({ status: "idle" }), 5000);
+    return () => window.clearTimeout(t);
+  }, [submitState.status]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (isSending) return;
+
+    if (!form.name.trim()) {
+      setSubmitState({ status: "error", message: "Please enter your name." });
+      return;
+    }
+    if (!form.email.trim() || !isValidEmail(form.email.trim())) {
+      setSubmitState({ status: "error", message: "Please enter a valid email address." });
+      return;
+    }
+    if (!form.message.trim()) {
+      setSubmitState({ status: "error", message: "Please enter your message." });
+      return;
+    }
+
+    setSubmitState({ status: "sending" });
+    try {
+      await submitLead({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        phone: "",
+        subject: "Team Page Inquiry",
+        message: form.message.trim(),
+        page: "Our Team",
+      });
+      setSubmitState({
+        status: "success",
+        message: "Thanks! We received your message.",
+      });
+      setForm({ name: "", email: "", message: "" });
+    } catch (err) {
+      const msg =
+        err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      setSubmitState({ status: "error", message: msg });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
@@ -93,27 +149,49 @@ const OurTeam = () => {
               <p className="text-muted-foreground mb-8">
                 If you have any questions, you can contact us. Please, fill out the form below.
               </p>
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={handleSubmit}>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <input
                     type="text"
                     placeholder="Name"
+                    value={form.name}
+                    onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                     className="w-full h-12 px-4 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   />
                   <input
                     type="email"
                     placeholder="E-Mail"
+                    value={form.email}
+                    onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                     className="w-full h-12 px-4 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   />
                 </div>
                 <textarea
                   rows={4}
                   placeholder="Your Message"
+                  value={form.message}
+                  onChange={(e) => setForm((p) => ({ ...p, message: e.target.value }))}
                   className="w-full px-4 py-3 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
                 />
-                <Button variant="hero" size="lg">
+                {submitState.status !== "idle" && (
+                  <div
+                    className={`rounded-xl border px-4 py-3 text-sm ${
+                      submitState.status === "success"
+                        ? "border-primary/30 bg-primary/10 text-foreground"
+                        : submitState.status === "error"
+                          ? "border-destructive/30 bg-destructive/10 text-foreground"
+                          : "border-border bg-secondary/40 text-foreground"
+                    }`}
+                    role="status"
+                    aria-live="polite"
+                  >
+                    {submitState.message}
+                  </div>
+                )}
+
+                <Button variant="hero" size="lg" type="submit" disabled={isSending}>
                   <Send className="w-4 h-4" />
-                  Send Message
+                  {isSending ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </motion.div>

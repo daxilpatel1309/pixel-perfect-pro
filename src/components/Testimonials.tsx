@@ -4,7 +4,7 @@ import { Star, Play } from "lucide-react";
 const testimonials = [
   {
     quote:
-      '"Softy Solutions took our rough concept and turned it into a polished SaaS product in just 8 weeks. The speed and quality blew us away!"',
+      '"JJR SOFTWARE took our rough concept and turned it into a polished SaaS product in just 8 weeks. The speed and quality blew us away!"',
     author: "Alex Carter",
     role: "Founder of Taskify",
     company: "Taskify",
@@ -26,7 +26,7 @@ const testimonials = [
   },
   {
     quote:
-      '"Softy Solutions turned our scattered idea into a polished MVP in under two months. The AI-driven workflow saved us months of trial and error."',
+      '"JJR SOFTWARE turned our scattered idea into a polished MVP in under two months. The AI-driven workflow saved us months of trial and error."',
     author: "Sofia Patel",
     role: "Co-Founder at EcoLink",
     company: "EcoLink",

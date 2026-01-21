@@ -71,3 +71,21 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Supabase Integration (Frontend Only)
+
+For step-by-step setup (Supabase table, RLS, env, and frontend wiring), see:
+
+- `docs/supabase-integration.md`
+
+## Google Sheets Integration (Frontend Only)
+
+For step-by-step setup (Google Sheet → Apps Script Web App → `.env`), see:
+
+- `docs/google-sheets-integration.md`
+
+## Blog Module (Supabase + Frontend Only)
+
+For step-by-step setup (Supabase table + RLS, env admin flag, routes, and UI), see:
+
+- `docs/blog-supabase-module.md`
+
